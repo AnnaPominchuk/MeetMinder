@@ -1,16 +1,23 @@
 import { CalendarEvent } from '../models/CalendarEvent'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function EventList({events, isOngoing} : {events:CalendarEvent[], isOngoing:boolean}){
 
     return (
-        <>
-            {
-                 isOngoing ? events?.slice(1,4).map((myevent:CalendarEvent, i) => <Event {...myevent} key={i}/>)
-                            : events?.slice(0,3).map((myevent:CalendarEvent, i) => <Event {...myevent} key={i}/>)
-
-            }
-        </>
-    )
+      <>
+        {isOngoing
+          ? events
+              ?.slice(1, 4)
+              .map((myevent: CalendarEvent, i) => (
+                <Event {...myevent} key={uuidv4()} />
+              ))
+          : events
+              ?.slice(0, 3)
+              .map((myevent: CalendarEvent, i) => (
+                <Event {...myevent} key={uuidv4()} />
+              ))}
+      </>
+    );
 }
 
 function Event(event:CalendarEvent){
