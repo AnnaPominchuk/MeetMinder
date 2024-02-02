@@ -5,6 +5,7 @@ import { Convert, CalendarEvent } from './models/CalendarEvent'
 import Room from './components/Room'
 import Header from './components/Header'
 import config from '../../appconfig.json'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function Home() {
 
@@ -48,16 +49,23 @@ export default function Home() {
   return (
     <main className={`min-w-fit h-screen bg-mainColor text-mainFontColor`}>
       <div className='flex flex-col h-full'>
-        <Header time={time}/>
+        <Header time={time} />
         <div className='flex flex-col justify-center h-full'>
-          {
-            eventsByRooms?.map((events:CalendarEvent[], i) =>  <Room events={...events} time={time} key={i} name={config.roomNames[i]}/>)
-          }  
+          {eventsByRooms?.map((events: CalendarEvent[], i) => (
+            <Room
+              events={events}
+              time={time}
+              key={uuidv4()}
+              name={config.roomNames[i]}
+            />
+          ))}
         </div>
         <div className='flex justify-center'>
-          <p className='text-secondaryFontColor text-sm mb-4'>Created by @AnnaPominchuk</p>
+          <p className='text-secondaryFontColor text-sm mb-4'>
+            Created by @AnnaPominchuk
+          </p>
         </div>
       </div>
     </main>
-  )
+  );
 }
